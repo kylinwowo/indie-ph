@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1761697639071,
-      "tag": "0000_closed_namorita",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1761697679254,
-      "tag": "0001_curved_gabe_jones",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1761878857236,
-      "tag": "0002_brave_ravenous",
+      "when": 1761882580329,
+      "tag": "0000_strong_next_avengers",
       "breakpoints": true
     }
   ]

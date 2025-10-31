@@ -20,7 +20,7 @@ CREATE TABLE "post" (
 );
 --> statement-breakpoint
 CREATE TABLE "sync_logs" (
-	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "sync_logs_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
+	"id" serial PRIMARY KEY NOT NULL,
 	"sync_time" timestamp NOT NULL,
 	"status" "sync_status" NOT NULL,
 	"duration_ms" integer,
@@ -33,3 +33,10 @@ CREATE TABLE "sync_logs" (
 	"trigger_source" "trigger_source" DEFAULT 'api' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
+--> statement-breakpoint
+CREATE UNIQUE INDEX "post_post_id_idx" ON "post" USING btree ("post_id");--> statement-breakpoint
+CREATE INDEX "post_created_at_idx" ON "post" USING btree ("created_at");--> statement-breakpoint
+CREATE INDEX "post_enable_idx" ON "post" USING btree ("enable");--> statement-breakpoint
+CREATE INDEX "sync_logs_sync_time_idx" ON "sync_logs" USING btree ("sync_time");--> statement-breakpoint
+CREATE INDEX "sync_logs_status_idx" ON "sync_logs" USING btree ("status");--> statement-breakpoint
+CREATE INDEX "sync_logs_created_at_idx" ON "sync_logs" USING btree ("created_at");
