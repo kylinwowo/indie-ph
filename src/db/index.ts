@@ -7,7 +7,7 @@ if (!connectionString) {
 }
 
 // Connect to the database
-const client = postgres(connectionString)
+const client = postgres(connectionString);
 export const db = drizzle(client);
 
 export * from './schema';

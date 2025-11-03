@@ -153,9 +153,7 @@
         "post_post_id_unique": {
           "name": "post_post_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "post_id"
-          ]
+          "columns": ["post_id"]
         }
       },
       "policies": {},
@@ -307,20 +305,12 @@
     "public.sync_status": {
       "name": "sync_status",
       "schema": "public",
-      "values": [
-        "success",
-        "failed",
-        "partial"
-      ]
+      "values": ["success", "failed", "partial"]
     },
     "public.trigger_source": {
       "name": "trigger_source",
       "schema": "public",
-      "values": [
-        "manual",
-        "cron",
-        "api"
-      ]
+      "values": ["manual", "cron", "api"]
     }
   },
   "schemas": {},

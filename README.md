@@ -84,11 +84,13 @@ src/
 ## Available Scripts
 
 ### Development Scripts
+
 - `npm run dev` - Start development server
 - `npm run build` - Build production version
 - `npm run start` - Start production server
 
 ### Code Quality
+
 - `npm run lint` - ESLint check
 - `npm run format` - Code formatting
 - `npm run format:check` - Check code format
@@ -96,6 +98,7 @@ src/
 - `npm run check-all` - Run all checks
 
 ### Database Management
+
 - `npm run db:generate` - Generate database migration files
 - `npm run db:migrate` - Execute database migrations
 - `npm run db:push` - Push schema to database (development environment)
@@ -107,6 +110,7 @@ src/
 ### Table Structure
 
 #### post Table (Product Information)
+
 - `id`: Auto-increment primary key
 - `post_id`: ProductHunt product ID (unique)
 - `name`: Product name
@@ -120,6 +124,7 @@ src/
 - `enable`: Product enable status
 
 #### sync_logs Table (Sync Logs)
+
 - `id`: Auto-increment primary key
 - `sync_time`: Sync start time
 - `status`: Sync status (success/failed/partial)
@@ -134,6 +139,7 @@ src/
 - `created_at`: Record creation time
 
 ### Index Optimization
+
 - `post_id`: Unique index (ProductHunt product ID)
 - `created_at`: Regular index (for time sorting)
 - `enable`: Regular index (for status filtering)
