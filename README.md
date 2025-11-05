@@ -1,6 +1,6 @@
 # IndiePH - Indie Developer Product Showcase Platform
 
-IndiePH is a website dedicated to showcasing products from indie developers and small teams (≤3 people). By curating quality indie products from ProductHunt, it provides inspiration and learning opportunities for indie developers.
+IndiePH is a website dedicated to showcasing products from indie developers and open-source friendly projects. By curating quality products from ProductHunt that have a public GitHub repository, it provides inspiration and learning opportunities for indie developers.
 
 ## Tech Stack
 
@@ -153,7 +153,7 @@ src/
 - 🎨 Modern UI design
 - 🚀 Server-side rendering (SSR) for SEO optimization
 - 📊 Automatic product data synchronization
-- 🔍 Indie developer product filtering
+- 🔍 Product filtering based on GitHub repository presence
 - 🗄️ Complete database design and migration system
 
 ## API Endpoints

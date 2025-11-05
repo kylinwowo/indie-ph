@@ -1,11 +1,13 @@
 import type { SimplePost } from '@/lib/producthunt';
 
 /**
- * Filter posts to include only indie products
- * Criteria: makersCount <= 3
+ * Filter posts to include only products with a GitHub URL.
+ * Criteria: `github` exists and is a non-empty string after trimming.
  */
 export function filterIndieProducts(posts: SimplePost[]): SimplePost[] {
-  return posts.filter((p) => p.makersCount <= 3);
+  return posts.filter(
+    (p) => typeof p.github === 'string' && p.github.trim().length > 0
+  );
 }
 
 /**

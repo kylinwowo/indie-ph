@@ -46,12 +46,12 @@ export const insertPostSchema = createInsertSchema(post, {
   thumbnail: z.url().optional(),
   url: z.url().optional(),
   website: z.url().optional(),
-  makers: z.number().min(1).max(3),
+  makers: z.number(),
   twitter: z.url().optional(),
   facebook: z.url().optional(),
   linkedin: z.url().optional(),
   instagram: z.url().optional(),
-  github: z.url().optional(),
+  github: z.url()
 });
 
 // Export types
