@@ -51,7 +51,7 @@ export const insertPostSchema = createInsertSchema(post, {
   facebook: z.url().optional(),
   linkedin: z.url().optional(),
   instagram: z.url().optional(),
-  github: z.url()
+  github: z.url(),
 });
 
 // Export types

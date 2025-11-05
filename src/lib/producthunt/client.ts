@@ -86,20 +86,41 @@ export class NewPost {
       variables,
     };
 
-    const response = await fetch(PRODUCTHUNT_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.apiToken}`,
-        'User-Agent': 'IndiePH/1.0',
-      },
-      body: JSON.stringify(requestBody),
-    });
+    let response: Response;
+    for (;;) {
+      response = await fetch(PRODUCTHUNT_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.apiToken}`,
+          'User-Agent': 'IndiePH/1.0',
+        },
+        body: JSON.stringify(requestBody),
+      });
 
-    if (!response.ok) {
-      throw new Error(
-        `HTTP error! status: ${response.status} ${response.statusText}`
-      );
+      if (response.status === 429) {
+        const limit = response.headers.get('X-Rate-Limit-Limit');
+        const remaining = response.headers.get('X-Rate-Limit-Remaining');
+        const reset = response.headers.get('X-Rate-Limit-Reset');
+        const resetSeconds = reset ? parseInt(reset, 10) : 60;
+        const waitMs = Number.isFinite(resetSeconds)
+          ? Math.max(resetSeconds, 1) * 1000
+          : 60_000;
+        console.warn(
+          `ProductHunt rate limited (429). Limit=${limit ?? '?'} Remaining=${
+            remaining ?? '?'
+          } Reset=${resetSeconds}s. Waiting ${waitMs / 1000}s before retry...`
+        );
+        await new Promise((resolve) => setTimeout(resolve, waitMs));
+        continue; // retry
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          `HTTP error! status: ${response.status} ${response.statusText}`
+        );
+      }
+      break; // successful response
     }
 
     const data = await response.json();
