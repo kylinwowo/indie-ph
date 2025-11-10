@@ -73,7 +73,7 @@ export function PostCard({ item, className }: Props) {
                 size="icon-sm"
                 className="hover:bg-transparent opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity [&_svg]:text-muted-foreground hover:[&_svg]:text-primary"
                 aria-label="Open Website"
-             >
+              >
                 <a href={item.website!} target="_blank" rel="noreferrer">
                   <ExternalLink className="h-4 w-4" />
                 </a>
