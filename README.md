@@ -1,10 +1,10 @@
-# IndiePH - Indie Developer Product Showcase Platform
+# IndiePH - Product Hunt Open-Source Product Showcase
 
-IndiePH is a website dedicated to showcasing products from indie developers and open-source friendly projects. By curating quality products from ProductHunt that have a public GitHub repository, it provides inspiration and learning opportunities for indie developers.
+IndiePH is a website dedicated to showcasing open-source products featured on Product Hunt. By curating projects with a public GitHub repository, it provides inspiration and learning opportunities for builders and the open-source community.
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15 + React 19 + TypeScript
+- **Frontend**: Next.js + React + TypeScript
 - **Styling**: Tailwind CSS + shadcn/ui
 - **State Management**: Zustand
 - **Database**: Supabase (PostgreSQL) + Drizzle ORM
@@ -32,7 +32,6 @@ Edit the `.env.local` file and fill in the following configurations:
 
 - `DATABASE_URL`: Supabase database connection string
 - `PRODUCTHUNT_API_TOKEN`: ProductHunt API access token
-- `SYNC_API_TOKEN`: Incremental sync API authentication token
 
 ### 3. Database Initialization
 
@@ -42,16 +41,13 @@ npm run db:generate
 
 # Execute database migrations
 npm run db:migrate
-
-# Or push directly to database (development environment)
-npm run db:push
 ```
 
-### 4. Verify Database Connection
+### 4. Pull Product Hunt Data
 
 ```bash
-# Test database connection and table structure
-npm run db:test
+# Pull latest products from Product Hunt API
+npm run sync-all -- --date=2025-01-01
 ```
 
 ### 5. Start Development Server
@@ -101,9 +97,6 @@ src/
 
 - `npm run db:generate` - Generate database migration files
 - `npm run db:migrate` - Execute database migrations
-- `npm run db:push` - Push schema to database (development environment)
-- `npm run db:studio` - Launch Drizzle Studio database management interface
-- `npm run db:test` - Test database connection
 
 ## Database Design
 
@@ -159,7 +152,6 @@ src/
 ## API Endpoints
 
 - `GET /api/posts` - Get product list
-- `POST /api/sync/incremental` - Incremental data synchronization
 
 ## Deployment
 
