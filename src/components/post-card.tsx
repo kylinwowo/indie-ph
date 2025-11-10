@@ -80,7 +80,7 @@ export function PostCard({ item, className }: Props) {
               </Button>
             ) : null}
           </div>
-          <p className="mt-1 line-clamp-2 text-sm text-muted-foreground min-h-[2.5rem]">
+          <p className="mt-1 line-clamp-2 text-sm text-muted-foreground min-h-10">
             {item.tagline}
           </p>
         </div>

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { usePostsStore } from '@/store/posts';
 import { PostCard } from '@/components/post-card';
 import PostCardSkeleton from '@/components/post-card-skeleton';
+import InfiniteScroll from '@/components/ui/infinite-scroll';
 
 export default function Home() {
   const { items, loading, error, hasNext, fetchInitial, fetchMore } =
@@ -30,30 +31,43 @@ export default function Home() {
           </div>
         ) : null}
 
-        <section
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          aria-busy={loading}
+        <InfiniteScroll
+          isLoading={loading}
+          hasMore={hasNext}
+          next={fetchMore}
+          threshold={1}
+          root={null}
+          rootMargin="200px"
         >
-          {loading && items.length === 0
-            ? Array.from({ length: 6 }).map((_, i) => (
-                <PostCardSkeleton key={i} />
-              ))
-            : items.map((item) => <PostCard key={item.id} item={item} />)}
-        </section>
+          <section
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            aria-busy={loading}
+          >
+            {loading && items.length === 0
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <PostCardSkeleton key={i} />
+                ))
+              : items.map((item) => <PostCard key={item.id} item={item} />)}
+            {loading && items.length > 0
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <PostCardSkeleton key={`more-${i}`} />
+                ))
+              : null}
+          </section>
 
-        <div className="mt-8 flex justify-center">
-          {hasNext ? (
-            <button
-              className="inline-flex h-9 items-center justify-center rounded-md border border-border bg-muted px-4 text-sm hover:bg-muted/70"
-              onClick={() => fetchMore()}
-              disabled={loading}
-            >
-              {loading ? 'Loading...' : 'Load More'}
-            </button>
-          ) : (
-            <p className="text-sm text-muted-foreground">No more products</p>
-          )}
-        </div>
+          <div className="mt-6 flex justify-center">
+            {error && hasNext ? (
+              <button
+                className="inline-flex h-9 items-center justify-center rounded-md border border-destructive/30 bg-destructive/10 px-4 text-sm text-destructive hover:bg-destructive/15"
+                onClick={() => fetchMore()}
+              >
+                Retry loading
+              </button>
+            ) : !hasNext ? (
+              <p className="text-sm text-muted-foreground">No more products</p>
+            ) : null}
+          </div>
+        </InfiniteScroll>
       </main>
     </div>
   );
