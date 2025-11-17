@@ -19,9 +19,12 @@ export default function Home() {
     <div className="min-h-screen bg-background font-sans text-foreground">
       <main className="mx-auto max-w-6xl px-4 py-8">
         <header className="mb-6">
-          <h1 className="text-2xl font-semibold">Open Source Products on Product Hunt</h1>
+          <h1 className="text-2xl font-semibold">
+            Open Source Products on Product Hunt
+          </h1>
           <p className="text-sm text-muted-foreground">
-            Discover open-source projects featured on Product Hunt with public GitHub repositories
+            Discover open-source projects featured on Product Hunt with public
+            GitHub repositories
           </p>
         </header>
 

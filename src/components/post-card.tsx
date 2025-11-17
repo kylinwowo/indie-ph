@@ -17,10 +17,9 @@ import { cn } from '@/lib/utils';
 
 type Props = {
   item: PostItem;
-  className?: string;
 };
 
-export function PostCard({ item, className }: Props) {
+export function PostCard({ item }: Props) {
   const socials = [
     { icon: Github, href: item.github },
     { icon: Twitter, href: item.twitter },
@@ -32,8 +31,7 @@ export function PostCard({ item, className }: Props) {
   return (
     <Card
       className={cn(
-        'group bg-card text-card-foreground border-border hover:border-foreground/20 transition-colors cursor-pointer h-full flex flex-col',
-        className
+        'group bg-card text-card-foreground border-border hover:border-foreground/20 transition-colors cursor-pointer h-full flex flex-col'
       )}
       role="link"
       tabIndex={0}
