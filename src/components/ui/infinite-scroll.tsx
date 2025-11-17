@@ -28,8 +28,8 @@ export default function InfiniteScroll({
       if (threshold < 0 || threshold > 1) {
         safeThreshold = 1;
       }
-      if (isLoading) return;
       if (observer.current) observer.current.disconnect();
+      if (isLoading) return;
       if (!element) return;
 
       observer.current = new IntersectionObserver(
