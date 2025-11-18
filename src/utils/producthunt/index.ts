@@ -20,3 +20,25 @@ export function normalizeOptionalUrl(
   const trimmed = value.trim();
   return trimmed.length === 0 ? undefined : trimmed;
 }
+
+/**
+ * Map SimplePost (ProductHunt) to NewPost record for DB insertion.
+ */
+export function toNewPostRecord(p: SimplePost) {
+  return {
+    postId: Number(p.id),
+    name: p.name || undefined,
+    tagline: p.tagline || undefined,
+    thumbnail: normalizeOptionalUrl(p.thumbnail),
+    url: normalizeOptionalUrl(p.url),
+    website: normalizeOptionalUrl(p.website),
+    createdAt: new Date(p.createdAt),
+    makers: p.makersCount,
+    twitter: normalizeOptionalUrl(p.twitter),
+    facebook: normalizeOptionalUrl(p.facebook),
+    linkedin: normalizeOptionalUrl(p.linkedin),
+    instagram: normalizeOptionalUrl(p.instagram),
+    github: normalizeOptionalUrl(p.github),
+    enable: true,
+  };
+}

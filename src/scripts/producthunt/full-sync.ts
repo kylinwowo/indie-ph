@@ -1,10 +1,10 @@
 import { config } from 'dotenv';
 config({ path: '.env.local' });
 
-import { NewPost, type SimplePost } from '@/lib/producthunt';
+import { NewPost } from '@/lib/producthunt';
 import { existPost, insertPost } from '@/models/post';
 import { insertSyncLog } from '@/models/sync_logs';
-import { filterIndieProducts, normalizeOptionalUrl } from '@/utils/producthunt';
+import { filterIndieProducts, toNewPostRecord } from '@/utils/producthunt';
 
 /**
  * Full sync script: fetch all ProductHunt posts and persist to DB.
@@ -40,25 +40,6 @@ function parseArgs(): { date: string; limit?: number } {
   }
 
   return { date, limit };
-}
-
-function toNewPostRecord(p: SimplePost) {
-  return {
-    postId: Number(p.id),
-    name: p.name || undefined,
-    tagline: p.tagline || undefined,
-    thumbnail: normalizeOptionalUrl(p.thumbnail),
-    url: normalizeOptionalUrl(p.url),
-    website: normalizeOptionalUrl(p.website),
-    createdAt: new Date(p.createdAt),
-    makers: p.makersCount,
-    twitter: normalizeOptionalUrl(p.twitter),
-    facebook: normalizeOptionalUrl(p.facebook),
-    linkedin: normalizeOptionalUrl(p.linkedin),
-    instagram: normalizeOptionalUrl(p.instagram),
-    github: normalizeOptionalUrl(p.github),
-    enable: true,
-  };
 }
 
 async function main() {
