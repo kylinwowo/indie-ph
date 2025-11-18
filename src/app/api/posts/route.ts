@@ -1,33 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPostsPage } from '@/models/post';
-
-type CursorPayload = {
-  createdAt: string;
-  id: number;
-};
-
-function encodeCursor(payload: CursorPayload): string {
-  return Buffer.from(JSON.stringify(payload)).toString('base64');
-}
-
-function decodeCursor(cursor: string | null): CursorPayload | null {
-  if (!cursor) return null;
-  try {
-    const json = Buffer.from(cursor, 'base64').toString('utf8');
-    const obj = JSON.parse(json) as CursorPayload;
-    if (
-      typeof obj === 'object' &&
-      obj !== null &&
-      typeof obj.createdAt === 'string' &&
-      typeof obj.id === 'number'
-    ) {
-      return obj;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
+import { decodeCursor } from '@/lib/cursor';
+import { toPostItem, computeNextCursor } from '@/lib/posts-serialize';
 
 /**
  * GET /api/posts
@@ -40,7 +14,6 @@ export async function GET(req: NextRequest) {
 
   const limitEnv = process.env.POSTS_PAGE_SIZE;
   const limit = limitEnv ? Number(limitEnv) : 10;
-
   const cursor = decodeCursor(cursorParam);
 
   try {
@@ -52,31 +25,8 @@ export async function GET(req: NextRequest) {
         : undefined
     );
 
-    const data = rows.map((r) => ({
-      id: r.id,
-      postId: r.postId,
-      name: r.name,
-      tagline: r.tagline,
-      thumbnail: r.thumbnail,
-      url: r.url,
-      website: r.website,
-      createdAt:
-        r.createdAt instanceof Date ? r.createdAt.toISOString() : r.createdAt,
-      makers: r.makers,
-      twitter: r.twitter,
-      facebook: r.facebook,
-      linkedin: r.linkedin,
-      instagram: r.instagram,
-      github: r.github,
-    }));
-
-    const nextCursor = hasNext
-      ? encodeCursor({
-          createdAt:
-            data[data.length - 1]?.createdAt ?? new Date().toISOString(),
-          id: data[data.length - 1]?.id ?? 0,
-        })
-      : null;
+    const data = rows.map(toPostItem);
+    const nextCursor = computeNextCursor(data, hasNext);
 
     return NextResponse.json({
       status: 'ok',
