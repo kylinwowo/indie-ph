@@ -5,13 +5,13 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
-  Github,
-  Twitter,
-  Facebook,
-  Linkedin,
-  Instagram,
-  ExternalLink,
-} from 'lucide-react';
+  RiGithubFill,
+  RiTwitterXFill,
+  RiFacebookFill,
+  RiLinkedinFill,
+  RiInstagramFill,
+  RiExternalLinkLine,
+} from 'react-icons/ri';
 import type { PostItem } from '@/store/posts';
 import { cn } from '@/lib/utils';
 
@@ -21,11 +21,11 @@ type Props = {
 
 export function PostCard({ item }: Props) {
   const socials = [
-    { icon: Github, href: item.github },
-    { icon: Twitter, href: item.twitter },
-    { icon: Facebook, href: item.facebook },
-    { icon: Linkedin, href: item.linkedin },
-    { icon: Instagram, href: item.instagram },
+    { icon: RiGithubFill, href: item.github },
+    { icon: RiTwitterXFill, href: item.twitter },
+    { icon: RiFacebookFill, href: item.facebook },
+    { icon: RiLinkedinFill, href: item.linkedin },
+    { icon: RiInstagramFill, href: item.instagram },
   ].filter((s) => !!s.href);
 
   return (
@@ -73,7 +73,7 @@ export function PostCard({ item }: Props) {
                 aria-label="Open Website"
               >
                 <a href={item.website!} target="_blank" rel="noreferrer">
-                  <ExternalLink className="h-4 w-4" />
+                  <RiExternalLinkLine size={16} />
                 </a>
               </Button>
             ) : null}
@@ -97,7 +97,7 @@ export function PostCard({ item }: Props) {
               className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border hover:bg-muted"
               aria-label="social-link"
             >
-              <Icon className="h-4 w-4 text-muted-foreground" />
+              <Icon size={16} className="text-primary" />
             </a>
           ))}
         </div>
