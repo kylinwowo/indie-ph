@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { NewPost } from '@/lib/producthunt';
 import { existPost, insertPost, getPostsPage } from '@/models/post';
 import { insertSyncLog } from '@/models/sync_logs';
@@ -80,7 +81,7 @@ export async function GET(req: NextRequest) {
           } else {
             failedProducts += 1;
           }
-        } catch (err) {
+        } catch {
           failedProducts += 1;
         }
       }
@@ -103,6 +104,9 @@ export async function GET(req: NextRequest) {
         failedProducts > 0 ? 'Some records failed to insert' : undefined,
       triggerSource,
     });
+
+    // Invalidate homepage cache so the latest data is shown immediately
+    revalidatePath('/');
 
     return NextResponse.json({
       status: 'ok',
