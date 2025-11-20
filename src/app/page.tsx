@@ -2,6 +2,7 @@ import { getPostsPage } from '@/models/post';
 import PostsPageClient from '../components/posts-page-client';
 import { toPostItem, computeNextCursor } from '@/lib/posts-serialize';
 import { RiGithubFill } from 'react-icons/ri';
+import ThemeToggle from '@/components/theme-toggle';
 
 export default async function Home() {
   const limitEnv = process.env.POSTS_PAGE_SIZE;
@@ -20,15 +21,18 @@ export default async function Home() {
             <h1 className="text-2xl font-semibold">
               Open Source Products on Product Hunt
             </h1>
-            <a
-              href="https://github.com/kylinwowo/indie-ph"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Open GitHub repository"
-              className="inline-flex h-8 w-8 items-center justify-center text-muted-foreground hover:bg-muted rounded-md"
-            >
-              <RiGithubFill size={24} className="text-primary" />
-            </a>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/kylinwowo/indie-ph"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Open GitHub repository"
+                className="inline-flex h-8 w-8 items-center justify-center text-muted-foreground hover:bg-muted rounded-md"
+              >
+                <RiGithubFill size={24} className="text-primary" />
+              </a>
+              <ThemeToggle />
+            </div>
           </div>
           <p className="text-sm text-muted-foreground">
             Discover open-source projects featured on Product Hunt with public
